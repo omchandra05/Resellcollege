@@ -1,0 +1,16 @@
+# Dependency directories (don't upload these, they are huge!)
+node_modules/
+bower_components/
+
+# Environment variables (keep your secrets safe!)
+.env
+*.env.local
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Build outputs
+dist/
+build/
+*.log
