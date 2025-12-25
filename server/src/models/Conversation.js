@@ -4,6 +4,8 @@ const conversationSchema = new mongoose.Schema({
   participants: [
     { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
   ],
+  productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Listing' },
+  lastMessage: { type: String },
   lastMessageAt: { type: Date, default: Date.now },
   unreadCounts: [
     {

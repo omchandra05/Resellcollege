@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    /* Fixed dark theme background to match Scene3D */
+    @apply bg-[#020617] text-white antialiased overflow-x-hidden;
+  }
+}
+
+@layer components {
+  .glass-card {
+    background: rgba(15, 23, 42, 0.6); 
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 2rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    @apply transition-all duration-300;
+  }
+
+  .glow-button {
+    @apply bg-blue-600 text-white shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:shadow-[0_0_30px_rgba(37,99,235,0.6)] transition-all active:scale-95;
+  }
+
+  /* Custom glass scrollbar for the Chat and Notification list */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+  }
+}
+
+@layer utilities {
+  /* Slow bounce for AI Insight tags so they aren't distracting */
+  .animate-bounce-slow {
+    animation: bounce-slow 3s infinite;
+  }
+
+  @keyframes bounce-slow {
+    0%, 100% {
+      transform: translateY(-8%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: translateY(0);
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+}

@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: resell-server-prod
+    restart: always
+    environment:
+      # These will be loaded from a .env file in your project root on the server
+      - MONGO_URI=${MONGO_URI}
+      - PORT=5050
+      - JWT_SECRET=${JWT_SECRET}
+      - NODE_ENV=production
+      - FRONTEND_URL=https://${DOMAIN}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - JWT_EXPIRES_IN=${JWT_EXPIRES_IN}
+    networks:
+      - resell-network
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      args:
+        # The reverse proxy will forward requests starting with /api to the backend
+        VITE_API_URL: /api
+        VITE_GOOGLE_MAPS_API_KEY: ${VITE_GOOGLE_MAPS_API_KEY}
+        VITE_CLOUDINARY_UPLOAD_PRESET: ${VITE_CLOUDINARY_UPLOAD_PRESET}
+        VITE_CLOUDINARY_CLOUD_NAME: ${VITE_CLOUDINARY_CLOUD_NAME}
+    container_name: resell-client-prod
+    restart: always
+    networks:
+      - resell-network
+
+  nginx-proxy:
+    image: nginx:stable-alpine
+    container_name: resell-nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx-proxy/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - server
+      - client
+    networks:
+      - resell-network
+
+networks:
+  resell-network:
+    driver: bridge

@@ -4,7 +4,18 @@ const router = express.Router();
 const authController = require('../controllers/authcontroller');
 const { protect } = require('../middleware/authMiddleware');
 
-// REGISTER
+// SIGNUP (frontend uses this)
+router.post(
+  '/signup',
+  [
+    body('username').isLength({ min: 3 }).trim(),
+    body('email').isEmail().normalizeEmail(),
+    body('password').isLength({ min: 6 })
+  ],
+  authController.register
+);
+
+// REGISTER (legacy endpoint - same as signup)
 router.post(
   '/register',
   [

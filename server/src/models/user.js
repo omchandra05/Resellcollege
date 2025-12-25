@@ -7,6 +7,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    username: {
+        type: String,
+        unique: true,
+        sparse: true,
+    },
     email: {
         type : String,
         required: true,
@@ -30,10 +35,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: null,
     },
+    isVerified: {
+        type: Boolean,
+        default: false,
+    },
     role : {
         type: String,
-        enum: ["user", "admin"],
-        default: "user",
+        enum: ["buyer", "seller", "admin"],
+        default: "buyer",
     },
     settings:{
         theme: {
@@ -42,6 +51,12 @@ const userSchema = new mongoose.Schema({
             default: "light",
         }
     },
+    wishlist: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Listing'
+        }
+    ],
 }, { timestamps: true });
 
 userSchema.pre('save', async function () {

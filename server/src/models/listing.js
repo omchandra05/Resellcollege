@@ -64,8 +64,10 @@ const listingSchema = new mongoose.Schema({
       state: { type: String, required: true },
       pincode: { type: String },
       address: { type: String },
-      latitude: Number,
-      longitude: Number,
+      coordinates: {
+        lat: Number,
+        lng: Number
+      }
     },
 
     owner: {
@@ -100,3 +102,6 @@ const listingSchema = new mongoose.Schema({
 
   { timestamps: true }
 );
+
+const Listing = mongoose.model('Listing', listingSchema);
+module.exports = Listing;

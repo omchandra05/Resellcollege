@@ -1,16 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const chatController = require('../controllers/chatController');
 const { protect } = require('../middleware/authMiddleware');
-const chatController = require('../controllers/chatcontroller');
+
+router.get('/test', (req, res) => res.json({ message: 'Chat router is working' }));
 
 router.use(protect);
 
-// conversations
 router.get('/conversations', chatController.getConversations);
-router.post('/conversations', chatController.createOrGetConversation);
-
-// messages
-router.get('/conversations/:id/messages', chatController.getMessages);
-router.post('/messages', chatController.sendMessage); // ✅ ADD THIS
+router.get('/messages/:conversationId', chatController.getMessages);
+router.post('/send', chatController.sendMessage);
+router.post('/conversations/:conversationId/read', chatController.markConversationAsRead);
 
 module.exports = router;
