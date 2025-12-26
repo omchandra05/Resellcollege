@@ -17,6 +17,8 @@ if (process.env.NODE_ENV === 'production' && process.env.FRONTEND_URL) {
   allowedOrigins.push(process.env.FRONTEND_URL);
 }
 
+logger.info(`Allowed CORS origins: [${allowedOrigins.join(', ')}]`);
+
 const corsOptions = {
   origin: (origin, callback) => {
     // `origin` is the domain making the request.
