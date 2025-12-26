@@ -14,7 +14,11 @@ const allowedOrigins = [
   'http://localhost:3000',
 ];
 if (process.env.NODE_ENV === 'production' && process.env.FRONTEND_URL) {
-  allowedOrigins.push(process.env.FRONTEND_URL);
+  // Sanitize the URL to remove any trailing slash, which can cause CORS mismatches.
+  const frontendUrl = process.env.FRONTEND_URL.endsWith('/')
+    ? process.env.FRONTEND_URL.slice(0, -1)
+    : process.env.FRONTEND_URL;
+  allowedOrigins.push(frontendUrl);
 }
 
 logger.info(`Allowed CORS origins: [${allowedOrigins.join(', ')}]`);
