@@ -54,8 +54,10 @@ export const API_ENDPOINTS = {
 
   // Buyer
   BUYER: {
-    PURCHASES: `${API_BASE_URL}/api/buyer/purchases`,
-    WISHLIST: `${API_BASE_URL}/api/buyer/wishlist`,
+    // NOTE: The '/api/buyer/purchases' endpoint does not seem to exist on the backend yet.
+    // This will cause a 404 error if called.
+    PURCHASES: `${API_BASE_URL}/api/buyer/purchases`, 
+    WISHLIST: `${API_BASE_URL}/api/users/wishlist`, // Corrected to use the existing /api/users/wishlist route
   },
 };
 

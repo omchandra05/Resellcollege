@@ -43,8 +43,8 @@ const chatRoutes = require('./routes/chatRoutes');
 const aiRoutes = require('./routes/aiRoutes');
 
 app.use('/api/auth', authRoutes);
+app.use('/api/users/wishlist', wishlistRoutes); // Mount more specific routes first
 app.use('/api/users', usersRoutes);
-app.use('/api/users/wishlist', wishlistRoutes);
 app.use('/api/seller', sellerRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/chat', chatRoutes);
