@@ -18,7 +18,17 @@ if (process.env.NODE_ENV === 'production' && process.env.FRONTEND_URL) {
 }
 
 const corsOptions = {
-  origin: allowedOrigins,
+  origin: (origin, callback) => {
+    // `origin` is the domain making the request.
+    // Allow the request if it's in the allowed list or if there's no origin (like for server-to-server requests).
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      // Log the blocked origin for easy debugging and block the request.
+      logger.error(`CORS Blocked: The origin '${origin}' is not in the allowed list.`);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization']
