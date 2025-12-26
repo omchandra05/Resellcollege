@@ -3,8 +3,10 @@
  * Centralized API base URL and endpoints for the entire application
  */
 
-// Empty base URL since we're using Vite proxy that handles /api routing
-const API_BASE_URL = '';
+// In production, use the VITE_API_URL from environment variables.
+// In development, this will be an empty string, and requests will be
+// handled by the Vite proxy defined in vite.config.js.
+const API_BASE_URL = import.meta.env.VITE_API_URL || '';
 
 export const API_ENDPOINTS = {
   // Authentication
