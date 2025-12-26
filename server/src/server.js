@@ -65,7 +65,7 @@ app.set('io', io); // Make io accessible in controllers
 
 // Listen on the port provided by the environment (for Render) or fallback to config
 const PORT = process.env.PORT || 3000;
-const server = httpServer.listen(PORT, () => {
+const server = httpServer.listen(PORT, '0.0.0.0', () => {
   logger.info(`Server is running on port ${PORT}`);
 });
 
