@@ -6,7 +6,9 @@
 // In production, use the VITE_API_URL from environment variables.
 // In development, this will be an empty string, and requests will be
 // handled by the Vite proxy defined in vite.config.js.
-const API_BASE_URL = import.meta.env.VITE_API_URL || '';
+const rawApiBaseUrl = import.meta.env.VITE_API_URL || '';
+// Trim any trailing slash to prevent double slashes in the final URL
+const API_BASE_URL = rawApiBaseUrl.endsWith('/') ? rawApiBaseUrl.slice(0, -1) : rawApiBaseUrl;
 
 export const API_ENDPOINTS = {
   // Authentication
