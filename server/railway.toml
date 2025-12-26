@@ -1,8 +1,6 @@
 [build]
 builder = "dockerfile"
-dockerfilePath = "Dockerfile"
 
 [deploy]
-healthcheckPath = "/api/health"
-restartPolicyType = "ON_FAILURE"
 startCommand = "node src/server.js"
+healthcheckPath = "/api/health"
