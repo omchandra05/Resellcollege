@@ -18,8 +18,5 @@ COPY . .
 # Let's use it for better security.
 USER node
 
-# Make port 5050 available to the world outside this container
-EXPOSE 5050
-
 # Define the command to run your app
 CMD ["node", "src/server.js"]
