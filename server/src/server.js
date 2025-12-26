@@ -64,7 +64,7 @@ const io = initSocket(httpServer, { cors: corsOptions });
 app.set('io', io); // Make io accessible in controllers
 
 // Listen on the port provided by the environment (for Render) or fallback to config
-const PORT = process.env.PORT || config.PORT;
+const PORT = process.env.PORT || 3000;
 const server = httpServer.listen(PORT, () => {
   logger.info(`Server is running on port ${PORT}`);
 });
