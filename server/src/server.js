@@ -58,14 +58,15 @@ app.get('/', (req, res) => {
 // create one HTTP server
 const httpServer = http.createServer(app);
 
-// init socket.io on same server
+// Init socket.io on the same server with secure CORS options
 const initSocket = require('./socket');
-const io = initSocket(httpServer, { corsOrigin: '*' });
+const io = initSocket(httpServer, { cors: corsOptions });
 app.set('io', io); // Make io accessible in controllers
 
-// listen only once
-const server = httpServer.listen(config.PORT, () => {
-  logger.info(`Server is running on port ${config.PORT}`);
+// Listen on the port provided by the environment (for Render) or fallback to config
+const PORT = process.env.PORT || config.PORT;
+const server = httpServer.listen(PORT, () => {
+  logger.info(`Server is running on port ${PORT}`);
 });
 
 // graceful shutdown

@@ -6,8 +6,8 @@ const logger = require('./config/logger');
 
 function initSocket(httpServer, options = {}) {
   const io = new Server(httpServer, {
-    cors: { origin: options.corsOrigin || '*' },
-    path: options.path || '/socket.io'
+    cors: options.cors || { origin: '*' }, // Use the passed cors object, or fallback
+    path: options.path || '/socket.io',
   });
 
   io.use(socketAuth);
